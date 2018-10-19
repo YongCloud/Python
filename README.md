@@ -1,2 +1,2 @@
-# Python
+# Python Misc
 My Python repository
