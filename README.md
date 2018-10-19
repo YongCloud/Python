@@ -1,2 +1,3 @@
 # Python Misc
-My Python repository
+## iCalculator.py
+A simple calculator powered by Python tkinter.
