@@ -7,16 +7,18 @@ import tkinter as tk
 
 class Calculator(object):
     def __init__(self):
-        self.__window__ = tk.Tk() # 生成窗口
-        self.__window__.title('iCalculator') # 设置窗口标题
-        self.__window__.geometry('317x340')  # 设置窗口大小
-        self.__window__.wm_resizable(0, 0)  # 窗口大小不可调节
+        '''constructor'''
+        # private attribute
+        self.__window = tk.Tk() # 生成窗口
+        self.__window.title('iCalculator') # 设置窗口标题
+        self.__window.geometry('317x340')  # 设置窗口大小
+        self.__window.wm_resizable(0, 0)  # 窗口大小不可调节
         self.createWidgets()
-        self.__window__.mainloop()
+        self.__window.mainloop()
 
     def createWidgets(self):
-        self.__entry__ = tk.Entry(self.__window__,width=45)
-        self.__entry__.grid(row=0, columnspan=4)  # 文本框
+        self.__entry = tk.Entry(self.__window,width=45)
+        self.__entry.grid(row=0, columnspan=4)  # 文本框
         # 第二行
         second = 1
         self.createButton(second,('AC','+/-','%','÷'))
@@ -36,7 +38,7 @@ class Calculator(object):
     def createButton(self,row,textTuple,btn_height = 3,bg_color = 'orange',sticky = tk.W+tk.E+tk.N+tk.S):
         col = 0
         for x in textTuple:
-            button = tk.Button(self.__window__,text=x,height=btn_height,bg=bg_color)
+            button = tk.Button(self.__window,text=x,height=btn_height,bg=bg_color)
             if x == '0':
                 button.grid(row=row, column=col,columnspan=2,sticky=sticky)
                 col += 1
@@ -52,32 +54,38 @@ class Calculator(object):
         print(text)
 
         if text == 'AC':
-            self.__entry__.delete(0,tk.END)
+            self.__entry.delete(0,tk.END)
         elif text == '+/-':
             try:
-                num = eval(self.__entry__.get())
+                num = eval(self.__entry.get())
             except:
-                print("Can't convert to number")
+                self.__display("Error")
             else:
-                self.__entry__.delete(0, tk.END) # delete before
-                self.__entry__.insert(tk.END, str(-num))
+                self.__display(str(-num))
         elif text == '%':
             try:
-                num = eval(self.__entry__.get())
+                num = eval(self.__entry.get())
             except:
-                print("Can't convert to number")
+                self.__display("Error")
             else:
-                self.__entry__.delete(0, tk.END) # delete before
-                self.__entry__.insert(tk.END, str(num/100))
+                self.__display(str(num/100))
         elif text == '=':
-            old = self.__entry__.get()
-            temp = old.replace('÷','/')
-            temp = temp.replace('×','*')
-            result = eval(temp)
-            self.__entry__.delete(0, tk.END)  # delete before
-            self.__entry__.insert(tk.END, str(result))
+            try:
+                old = self.__entry.get()
+                temp = old.replace('÷','/')
+                temp = temp.replace('×','*')
+                result = eval(temp)
+            except:
+                self.__display("Error")
+            else:
+                self.__display(str(result))
         else:
-            self.__entry__.insert(tk.END,text)
+            self.__entry.insert(tk.END,text)
+
+    def __display(self,content):
+        '''private method'''
+        self.__entry.delete(0, tk.END) # delete before
+        self.__entry.insert(tk.END, content)
 
 # main
 if __name__ == '__main__':
