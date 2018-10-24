@@ -27,17 +27,12 @@ class GuessNumber(object):
         self.__button.bind('<Button-1>',self.clickHandler)
 
     def clickHandler(self,event):
-        widget = event.widget
-        text = widget['text']
-
         try:
             content = self.__entry.get()
             num = int(content)
-            self.__entry.delete(0,tk.END)
             if num > self.__b or num < self.__a:
                 self.__resultLabel['text'] = "input error!"
             elif num == self.__rand:
-                self.__entry.insert(tk.END,content)
                 self.__resultLabel['text'] = "congratulations!"
             elif num < self.__rand:
                 self.__a = num
