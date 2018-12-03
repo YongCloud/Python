@@ -15,3 +15,5 @@ They can be implemented by the same language, such as Java Swing, Python tkinter
 A simple calculator powered by Python tkinter.
 ## decode_alien_message.py
 A interesting problem, decode a mysterious message from extraterrestrials.
+## housing_loan_calculator.py
+A simple housing loan calculator.
